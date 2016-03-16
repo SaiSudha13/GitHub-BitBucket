@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,7 +7,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 
-public class SuperMarketPlusPlus.java {
+public class SuperMarketPlusPlus {
 
 	private static List<Item> items = null;
 
@@ -29,8 +30,8 @@ public class SuperMarketPlusPlus.java {
 		readItemsDetails();
 		// Assumption : Code operation of daily schedule is already in place. 
 		// Below for loop is only for testing for 10 night cycles and can be commented out if required.
-		for(int i=0;i < 10; i++)
-			updateQuality();
+	    	for(int i=0;i < 2; i++)
+		updateQuality();
 	}
 
 
@@ -52,6 +53,7 @@ public class SuperMarketPlusPlus.java {
 		String tempName = null;
 		int tempSellIn = 0;
 		int index=0;
+		if(items.size()!=0){
 		System.out.println("Started Modifying the Item Details:");
 		System.out.println("====================================================================");
 
@@ -135,7 +137,7 @@ public class SuperMarketPlusPlus.java {
 		System.out.println("All the necessary details of the Items have been modified Successfully ");
 
 		System.out.println();
-
+		}
 		//  	System.out.println(itemIterator.getName() + " " +itemIterator.getSellIn() + " " + 	itemIterator.getQuality() );
 	}
 
@@ -148,7 +150,7 @@ public class SuperMarketPlusPlus.java {
 	private static void readItemsDetails() {
 		try {
 			items = new ArrayList<Item>();
-			FileReader fr = new FileReader("itemsDetails.properties");
+			FileReader fr = new FileReader("./src/itemsDetails.properties");
 			BufferedReader br = new BufferedReader(fr);
 			String stringRead = br.readLine();
 			if (stringRead == null){
@@ -191,7 +193,9 @@ public class SuperMarketPlusPlus.java {
 			System.out.println("====================================================================");
 			br.close( );
 		}
-
+		catch(FileNotFoundException fe){
+			System.out.println("No file found with name itemsDetails.properties" +fe);
+		}
 		catch(IOException ioe){
 			System.out.println("Exception");
 		}
