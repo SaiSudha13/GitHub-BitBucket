@@ -30,34 +30,6 @@ public class SuperMarketPlusPlus {
 
 
 
-	private static void readItemsDetails() {
-		try {
-		  items = new ArrayList<Item>();
-	      FileReader fr = new FileReader("ItemsList.properties");
-	      BufferedReader br = new BufferedReader(fr);
-	      String stringRead = br.readLine();
-
-	      while( stringRead != null )
-	      {
-	        StringTokenizer st = new StringTokenizer(stringRead, ",");
-	        String name = st.nextToken( );
-	        int sellIn = Integer.parseInt(st.nextToken( ));  
-	        int quality = Integer.parseInt(st.nextToken( ));
-	        items.add( new Item(name, sellIn, quality));
-	        System.out.println(name + " " + sellIn + " "  +quality);
-	        // read the next line
-	        stringRead = br.readLine();
-	      }
-	      br.close( );
-	    }
-	
-	    catch(IOException ioe){
-	    	System.out.println("Exception");
-	    	}
-	}
-
-
-	
     public static void updateQuality()
     {
     	String tempName = null;
@@ -139,6 +111,64 @@ public class SuperMarketPlusPlus {
   //  	System.out.println(itemIterator.getName() + " " +itemIterator.getSellIn() + " " + 	itemIterator.getQuality() );
     }	
     		
-    		
+  /**
+	 * This method would start reading the itemsDetails.properties file.
+	 * Only the Validated Item details would be stored and Invalid Item Details would be discarded.
+	 * An intimate is given to the User to Correct the details as per the Correct format.
+	 */
+	private static void readItemsDetails() {
+		try {
+			items = new ArrayList<Item>();
+			FileReader fr = new FileReader("itemsDetails.properties");
+			BufferedReader br = new BufferedReader(fr);
+			String stringRead = br.readLine();
+			if (stringRead == null){
+				System.out.println("ItemsList.properties file is Empty. Please entry valid Item details");
+				System.out.println("The expected format of Item Details is : <itemName>,<SellIndays>,<Quality>");
+				
+			}
+			
+			while( stringRead != null )
+			{
+				StringTokenizer st = new StringTokenizer(stringRead, ",");
+				// Validation for the correct format of the Item Details
+				if (st.countTokens() !=3 ){
+					System.out.println("Received Item details as : " +stringRead);
+					System.out.println("The expected format of Item Details is : <itemName>,<SellIndays>,<Quality>");
+					System.out.println("Please re-enter the Item details in correct format. Skipping the entry " +stringRead);
+					stringRead = br.readLine();
+					continue;
+				}
+				String name = st.nextToken( );
+				int sellIn = Integer.parseInt(st.nextToken( ).trim());  
+				int quality = Integer.parseInt(st.nextToken( ).trim());
+				
+				// Validation for the Quality of the Item
+				if(itemDetailsValidated(name,quality)) {
+					items.add( new Item(name, sellIn, quality));
+					System.out.println("Adding the Item Details =====> " + name + "," + sellIn + ","  +quality);
+					// read the next line
+					stringRead = br.readLine();
+				}
+				else {
+					System.out.println("Quality " + quality +" of the item " + name + " is not a valid option ");
+					System.out.println("Skipping the entry : " +stringRead);
+					stringRead = br.readLine();
+					continue;
+				}
+			}
+			System.out.println("====================================================================");
+			System.out.println("Total Number of Items added : " +items.size());
+			System.out.println("====================================================================");
+			br.close( );
+		}
+
+		catch(IOException ioe){
+			System.out.println("Exception");
+		}
+	}
+
+
+  		
     	
 }
