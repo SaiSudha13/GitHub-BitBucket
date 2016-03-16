@@ -11,15 +11,10 @@ public class SuperMarketPlusPlus {
 	 */
 	public static void main(String[] args) {
 		
-        System.out.println("Starting Supermarket Plus Plus");
-		
-        items = new ArrayList<Item>();
-        items.add(new Item("Thermal Vest", 10, 20));
-        items.add(new Item("Aged Brie", 2, 0));
-        items.add(new Item("Chicken", 5, 7));
-        items.add(new Item("Sulfuras", 0, 80));
-        items.add(new Item("Backstage Passes", 15, 20));
-        items.add(new Item("Ginger Cake", 3, 6));
+        System.out.println("Welcome to our SUPER MARKET ");
+	System.out.println("====================================================================");
+	System.out.println("We have started reading the Item details....");
+	readItemsDetails();
 
         updateQuality();
 }
@@ -101,5 +96,33 @@ public class SuperMarketPlusPlus {
             }
         }
     }
+    
+    private static void readItemsDetails() {
+		try {
+		  items = new ArrayList<Item>();
+	      FileReader fr = new FileReader("ItemsList.properties");
+	      BufferedReader br = new BufferedReader(fr);
+	      String stringRead = br.readLine();
+
+	      while( stringRead != null )
+	      {
+	        StringTokenizer st = new StringTokenizer(stringRead, ",");
+	        String name = st.nextToken( );
+	        int sellIn = Integer.parseInt(st.nextToken( ));  
+	        int quality = Integer.parseInt(st.nextToken( ));
+	        items.add( new Item(name, sellIn, quality));
+	        System.out.println(name + " " + sellIn + " "  +quality);
+	        // read the next line
+	        stringRead = br.readLine();
+	      }
+	      br.close( );
+	    }
+	
+	    catch(IOException ioe){
+	    	System.out.println("Exception");
+	    	}
+	}
+
+
 
 }
