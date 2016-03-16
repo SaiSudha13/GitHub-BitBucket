@@ -1,0 +1,46 @@
+
+public class ItemBehaviour {
+
+	
+	/**
+	 * increaseQuality increments the Quality based on the incrementFactor
+	 * this method bares the maximum Quality check, which reduces numerous checkes in main method.
+	 * @param tempQuality
+	 * @param incrementFactor
+	 * @return
+	 */
+	public int increaseQuality(int tempQuality,int incrementFactor) {
+		// TODO Auto-generated method stub
+		tempQuality = tempQuality+incrementFactor;
+		if (tempQuality <= 50 ){
+			
+			return tempQuality;
+		}
+		return 50 ;
+		
+		
+	}
+	
+
+	/**
+	 * decreaseQuality decrements the Quality based on the decrementFactor
+	 * this method bares the minimum Quality check, which reduces numerous checkes in main method.
+	 * @param tempQuality
+	 * @param decrementFactor
+	 * @return
+	 */
+	public int decreaseQuality(int tempQuality,int decrementFactor) {
+		// TODO Auto-generated method stub
+		tempQuality = tempQuality-decrementFactor;
+		if (tempQuality > 0 ){
+			
+			return tempQuality;
+		}
+		return 0 ;
+		
+		
+		
+	}
+	
+
+}
