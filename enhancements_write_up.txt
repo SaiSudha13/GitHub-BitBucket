@@ -1,0 +1,9 @@
+Below are the few additions which I have made to the existing functionality.
+1. All the Item details have been taken from a properties file. Any user iput data must always be in an configurable file, so that the user do not have to go to the code just to introduce new items.
+2. Validations to the format of the item details entered in the properties file like checking maximum and minimum quality values; name,quality and sellIn details to be present in all the Items
+3. New class ItemBehaviour which defines the behaviour of the quality - with increaseQuality and decreaseQuality methods. One key functionality which is been added in here is to restrict increment or decrement of quality to max or min allowed levels respectively. This addition has removed lots of redudant code.
+4. As there is no clear say of quality to be increased for Sulfuras, it is assumed that the quality remains constant. Note there is already a metion that its quality is never decreased.
+5. I have used an advanced for loop instead of a traditional for loop as the iterations are very easy and we do not have to specif index every time.
+6. I have made sure there is no direct hard coding of the values , instead have defined all of them as constants. We can create a properties file for this as well.
+7. Assumed that the code operation of scheduled job at night is already available. Have created a dummy for loop to run the updateQuality method for an number of night cycles and this can be commented out as per requirement.
+8. Added SYSOUT statements at necessary places, so that the user would get to know of what exactly is been modified and updated.
